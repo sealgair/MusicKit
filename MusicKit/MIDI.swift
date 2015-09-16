@@ -9,7 +9,7 @@ public class MIDI {
     public var sourceChannel : UInt = 3
 
     /// Handler for incoming MIDI note on or off messages
-    public var noteMessageHandler : [MIDINoteMessage] -> Void = { messages in }
+    public var noteHandler : [MIDINoteMessage] -> Void = { messages in }
 
     /// The current pitch set in each input channel
     public var inputChannelToPitchSet = [UInt: PitchSet]()
@@ -50,7 +50,7 @@ public class MIDI {
     /// Note that messages are always sent on `sourceChannel`.
     ///
     /// :returns: `true` if the message was successfully sent
-    public func send(messages: [MIDIMessage]) -> Bool {
+    public func send<T: MIDIMessage>(messages: [T]) -> Bool {
         var success = false
         var packet = UnsafeMutablePointer<MIDIPacket>.alloc(sizeof(MIDIPacket))
         var packetList = UnsafeMutablePointer<MIDIPacketList>.alloc(sizeof(MIDIPacketList))
@@ -67,7 +67,8 @@ public class MIDI {
             success = false
         }
         packet.destroy()
-        packet.dealloc(sizeof(MIDIPacket))
+        // this dealloc is superfluous; not sure why.
+//        packet.dealloc(sizeof(MIDIPacket))
         packetList.destroy()
         packetList.dealloc(sizeof(MIDIPacketList))
         return success
@@ -123,7 +124,7 @@ public class MIDI {
                 }
             }
             if noteMessages.count > 0 {
-                self.noteMessageHandler(noteMessages)
+                self.noteHandler(noteMessages)
             }
         }
     }
