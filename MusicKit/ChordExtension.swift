@@ -2,7 +2,7 @@
 
 import Foundation
 
-public enum ChordExtension : UInt, Printable {
+public enum ChordExtension : UInt, CustomStringConvertible {
     case FlatNine = 13
     case Nine = 14
     case Eleven = 17

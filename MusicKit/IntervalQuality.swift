@@ -2,7 +2,7 @@
 
 import Foundation
 
-public enum IntervalQuality : UInt, Printable {
+public enum IntervalQuality : UInt, CustomStringConvertible {
     case Unison = 0
     case MinorSecond = 1
     case MajorSecond = 2

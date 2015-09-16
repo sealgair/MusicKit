@@ -34,7 +34,7 @@ public enum MKUtil {
             }
             newIndices = newIndices + [newIndex]
         }
-        return sorted(newIndices)
+        return newIndices.sort()
     }
 
     /// Converts an array of intervals to semitone indices
@@ -65,11 +65,11 @@ public enum MKUtil {
     /// first instance of `pitch`. Otherwise, it will point to the location where `pitch`
     /// could be inserted, keeping `pitchSet` in order.
     ///
-    /// :returns: An index in the range `0...count(pitches)` where `pitch` can be inserted.
+    /// - returns: An index in the range `0...count(pitches)` where `pitch` can be inserted.
     static func insertionIndex<C: CollectionType where
         C.Generator.Element == Pitch, C.Index == Int>(pitches: C,_ pitch: Pitch) -> Int
     {
-        if isEmpty(pitches) {
+        if pitches.isEmpty {
             return 0
         }
 

@@ -55,7 +55,7 @@ public struct MIDINoteMessage : MIDIMessage {
     }
 }
 
-extension MIDINoteMessage : Printable {
+extension MIDINoteMessage : CustomStringConvertible {
     public var description : String {
         let onString = on ? "On" : "Off"
         return "\(channel): Note \(onString): \(noteNumber) \(velocity)"

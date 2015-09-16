@@ -32,7 +32,7 @@ public enum ScaleQuality : String {
     }
 }
 
-extension ScaleQuality : Printable {
+extension ScaleQuality : CustomStringConvertible {
     public var description : String {
         return rawValue
     }

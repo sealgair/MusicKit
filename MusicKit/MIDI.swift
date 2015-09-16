@@ -49,11 +49,11 @@ public class MIDI {
     ///
     /// Note that messages are always sent on `sourceChannel`.
     ///
-    /// :returns: `true` if the message was successfully sent
+    /// - returns: `true` if the message was successfully sent
     public func send<T: MIDIMessage>(messages: [T]) -> Bool {
         var success = false
         var packet = UnsafeMutablePointer<MIDIPacket>.alloc(sizeof(MIDIPacket))
-        var packetList = UnsafeMutablePointer<MIDIPacketList>.alloc(sizeof(MIDIPacketList))
+        let packetList = UnsafeMutablePointer<MIDIPacketList>.alloc(sizeof(MIDIPacketList))
         packet = MIDIPacketListInit(packetList)
 
         for message in messages {
@@ -109,7 +109,7 @@ public class MIDI {
                 let noteOn = UInt(MKMIDIMessage.NoteOn.rawValue)
                 let noteOff = UInt(MKMIDIMessage.NoteOff.rawValue)
                 let noteMessageTypes = [noteOn, noteOff]
-                if contains(noteMessageTypes, messageType) {
+                if noteMessageTypes.contains(messageType) {
                     let noteNumber = packet[2] as! UInt
                     let velocity = packet[3] as! UInt
                     let m = MIDINoteMessage(on: messageType == noteOn || velocity == 0,

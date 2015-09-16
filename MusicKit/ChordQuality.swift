@@ -368,7 +368,7 @@ public enum ChordQuality : String {
     }
 }
 
-extension ChordQuality : Printable {
+extension ChordQuality : CustomStringConvertible {
     public var description : String {
         return rawValue
     }

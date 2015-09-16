@@ -80,7 +80,7 @@ extension Chord {
             let fullOpt = _descriptor(pitchSet, qualities: fullQs)
             // unaltered, no-slash, root position -> return
             if let full = fullOpt {
-                if contains(fullUnalteredQs, full.quality) &&
+                if fullUnalteredQs.contains(full.quality) &&
                     full.bass == full.root {
                     return full
                 }
