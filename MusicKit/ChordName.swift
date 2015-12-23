@@ -87,7 +87,7 @@ extension Chord {
             }
             // try to simplify chord by slashing
             let noBassOpt = _descriptor(bassRemoved, qualities: slashQs)
-            var slashNoBassOpt : ChordDescriptor? = nil
+            var slashNoBassOpt: ChordDescriptor? = nil
             if let noBass = noBassOpt {
                 slashNoBassOpt = bassChromaOpt.map {
                     ChordDescriptor(root: noBass.root, quality: noBass.quality, bass: $0)

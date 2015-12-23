@@ -2,7 +2,7 @@
 
 import Foundation
 
-public enum ChordExtension : UInt, CustomStringConvertible {
+public enum ChordExtension: UInt, CustomStringConvertible {
     case FlatNine = 13
     case Nine = 14
     case Eleven = 17
@@ -10,10 +10,10 @@ public enum ChordExtension : UInt, CustomStringConvertible {
     case FlatThirteen = 20
     case Thirteen = 21
 
-    public var description : String {
+    public var description: String {
         switch self {
-        case FlatNine: return "9"
-        case Nine: return "♭9"
+        case FlatNine: return "♭9"
+        case Nine: return "9"
         case Eleven: return "11"
         case SharpEleven: return "♯11"
         case FlatThirteen: return "♭13"

@@ -8,7 +8,7 @@ public enum MKUtil {
         let count = semitoneIndices.count
         let modN = Int(n) % count
         var semitones = semitoneIndices
-        for i in 0..<modN {
+        for _ in 0..<modN {
             let next = semitones[0] + 12
             semitones = Array(semitones[1..<count] + [next])
         }
@@ -40,7 +40,7 @@ public enum MKUtil {
     /// Converts an array of intervals to semitone indices
     /// e.g. [4, 3] -> [0, 4, 7]
     public static func semitoneIndices(intervals: [Float]) -> [Float] {
-        var indices : [Float] = [0]
+        var indices: [Float] = [0]
         for i in 0..<intervals.count {
             let next = indices[i] + intervals[i]
             indices.append(next)
@@ -51,13 +51,16 @@ public enum MKUtil {
     /// Converts an array of semitone indices to intervals
     /// e.g. [0, 4, 7] -> [4, 3]
     public static func intervals(semitoneIndices: [Float]) -> [Float] {
-        var intervals : [Float] = []
+        var intervals: [Float] = []
         for i in 1..<semitoneIndices.count {
             let delta = semitoneIndices[i] - semitoneIndices[i-1]
             intervals.append(delta)
         }
         return intervals
     }
+}
+
+extension CollectionType where Generator.Element == Pitch, Index == Int {
 
     /// Returns the insertion point for `pitch` in the collection of `pitches`.
     ///
@@ -65,31 +68,30 @@ public enum MKUtil {
     /// first instance of `pitch`. Otherwise, it will point to the location where `pitch`
     /// could be inserted, keeping `pitchSet` in order.
     ///
-    /// - returns: An index in the range `0...count(pitches)` where `pitch` can be inserted.
-    static func insertionIndex<C: CollectionType where
-        C.Generator.Element == Pitch, C.Index == Int>(pitches: C,_ pitch: Pitch) -> Int
+    /// :returns: An index in the range `0...count(pitches)` where `pitch` can be inserted.
+    func insertionIndex(pitch: Pitch) -> Int
     {
-        if pitches.isEmpty {
+        if self.isEmpty {
             return 0
         }
 
-        var (low, high) = (0, pitches.endIndex - 1)
+        var (low, high) = (0, self.endIndex - 1)
         var mid = 0
 
         while low < high {
             mid = (high - low) / 2 + low
-            if pitches[mid] < pitch {
+            if self[mid] < pitch {
                 low = mid + 1
             } else {
                 high = mid
             }
         }
         
-        if pitches[low] >= pitch {
+        if self[low] >= pitch {
             return low
         }
         
-        return pitches.endIndex
+        return self.endIndex
     }
 }
 
